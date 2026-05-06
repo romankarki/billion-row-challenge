@@ -1,6 +1,10 @@
-﻿var data = File.ReadAllLines("data/weather_stations.csv");
+﻿var data = File.ReadAllLines("data/br.csv");
 
 Console.WriteLine(data.Length);
+var minimum = 200.000;
+var maximum = -1000.00;
+var sum = 0.0;
+var n = data.Length;
 
 foreach (var line in data)
 {
@@ -13,7 +17,20 @@ foreach (var line in data)
         continue;
 
     var city = columns[0];
-    var temperature = columns[1];
-    // Console.WriteLine($"{city};{temperature}");
+    float value = float.Parse(columns[1]);
+
+    if(value <= minimum)
+        minimum = value;
+    if(value >= maximum)
+        maximum = value;
+    
+    sum = sum + value;
+
 }
+
+var avg = (sum/n);
+
+Console.WriteLine($"minimum is {minimum}");
+Console.WriteLine($"maximum is {maximum}");
+Console.WriteLine($"avg is {avg}");
 
